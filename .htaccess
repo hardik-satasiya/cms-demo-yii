@@ -1,0 +1,40 @@
+# Turning on the rewrite engine is necessary for the following rules and features.
+# FollowSymLinks must be enabled for this to work.
+<IfModule mod_rewrite.c>
+  Options +FollowSymlinks
+  RewriteEngine On
+</IfModule>
+
+# Unless an explicit file or directory exists, redirect all request to Yii entry script
+<IfModule mod_rewrite.c>
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . index.php
+</IfModule>
+
+# compress text, html, javascript, css, xml:
+
+AddOutputFilterByType DEFLATE text/javascript
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE image/png
+AddOutputFilterByType DEFLATE image/gif
+AddOutputFilterByType DEFLATE image/jpeg
+AddOutputFilterByType DEFLATE image/jpg
+
+<FilesMatch "\.(js|css|png|jpeg|jpg|gif)$">
+    Header set Expires "Sun, 15 Feb 2020 20:00:00 GMT"
+</FilesMatch>
+
+
+# Or, compress certain file types by extension:
+<files *.html>
+SetOutputFilter DEFLATE
+</files>
